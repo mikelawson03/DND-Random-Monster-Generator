@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Monster Generator - D&D 5e</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="styles.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div>
+            <h1><%= data.name %></h1>
+        </div>
+        <div>
+            <%= data.size + " " + data.type + ", " + data.alignment %>
+        </div>
+        <hr />
+        <div>
+            <strong>Armor Class</strong> <%= data.armor_class[0].value %> <br />
+            <strong>Hit Points</strong> <%= data.hit_points %> (<%= data.hit_dice %>) <br />
+            <strong>Speed</strong> <%= speed %>
+        </div>
+        <hr />
+        <h5>Abilities</h5>
+        <div class="d-flex flex-row ">
+            <% for( var key in stats ) { %>
+                <div class="me-4">
+                
+                    <div>
+                        <strong> <%= key %> </strong>
+                    </div>
+                    <div>
+                        <%= stats[key] %>
+                        <% if (stats[key] >= 10) { %>
+                            (+<%= Math.floor((stats[key] - 10) / 2) %>)
+                        <% } else { %>
+                            (<%= Math.floor((stats[key] - 10) / 2) %>)
+                        <% }  %>
+                    </div>
+                </div>
+            <% } %>
+        </div>
+        <hr />
+        <div>
+            <% if (savingThrows != "") { %>
+                <strong>Saving Throws</strong> <%= savingThrows %> <br />
+            <% } %> 
+            <% if (skills != "") { %>
+            <strong>Skills</strong> <%= skills %> <br />
+            <% } %> 
+            <% if (data.damage_vulnerabilities != "") { %>
+                <strong>Damage Vulnerabilties</strong> <%= data.damage_vulnerabilities %> <br />
+            <% } %> 
+            <% if (data.damage_resistances != "") { %>
+                <strong>Damage resisitances</strong> <%= data.damage_resistances %> <br />
+            <% } %> 
+            <% if (data.damage_immunities != "") { %>
+                <strong>Damage Immunities</strong> <%= data.damage_immunities %> <br />
+            <% } %> 
+            <% if (data.condition_immunities != "") { %>
+                <strong>Condition Immunities</strong> <%= data.condition_immunities %> <br />
+            <% } %> 
+            <strong>Senses</strong> <%= senses %> <br />
+            <strong>Languages</strong> <%= data.languages %> <br />
+            <strong>Challenge</strong> <%= data.challenge_rating %> (<%= data.xp %> XP)
+        </div>
+        <hr />
+        <% if (data.special_abilities != "") { %>
+        <div>
+            <% for ( var i in data.special_abilities) { %>
+                <p><strong><em><%=data.special_abilities[i].name%><% if (data.special_abilities[i].usage != undefined) { %><%= `(${data.special_abilities[i].usage.times} ${data.special_abilities[i].usage.type.replaceAll("per ", "/")})`%><% } %>.</em></strong>
+                    <%= data.special_abilities[i].desc %>
+                </p>
+            <% } %> 
+        </div>
+        <% } %> 
+        <div>
+            ACTIONS
+            <hr class = "subhead" />
+            <% for (var i in data.actions) { %>
+                <p><strong><em><%= data.actions[i].name %>.</em></strong> <%= data.actions[i].desc %></p>
+            <% } %>
+        </div>
+        <% if ( data.legendary_actions != "") { %>
+        <div>
+            LEGENDARY ACTIONS
+            <hr class = "subhead" />
+            <p>The <%= data.type %> can take 3 legendary actions, choosing from the options below. only one legendary action option can be used at a time and only at the end of another creature's turn. The <%= data.type %> regainst spent legendary actions at the start of its turn.</p>
+            <% for (var i in data.legendary_actions) { %>
+                <p><strong><em><%= data.legendary_actions[i].name %>.</em></strong> <%= data.legendary_actions[i].desc %></p>
+            <% } %>
+        </div>
+        <% } %>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,13 @@
+h1 {
+    font-family: "Verdana",sans-serif;
+}
+
+hr {
+    border-top: 5px solid red;
+}
+
+.subhead {
+    border-top: 2px solid red;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
