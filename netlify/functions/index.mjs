@@ -6,7 +6,7 @@ const router = Router();
 
 app.use(express.static('public'));
 
-router.get("/", (req, res) => {
+router.get("/", async (req, res) => {
     // Get count of monsters from API, generate a random number within range of count, and request monster using random number as index
     const allMonsters = await axios.get("https://www.dnd5eapi.co/api/monsters");
     const monsterCount = allMonsters.data.count;
